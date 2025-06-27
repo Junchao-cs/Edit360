@@ -29,6 +29,7 @@
   </a>
 </p>
 
-<p align="center">
-  <img src="static/images/teaser.png" alt="Edit360 Teaser" width="90%">
-</p>
+https://github.com/user-attachments/assets/84f78f5f-809e-4ff5-bf64-6fd96db991bd
+
+
+
