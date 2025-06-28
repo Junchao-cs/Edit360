@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "sgm"
 dynamic = ["version"]
 description = "Stability Generative Models"
-readme = "README.md"
+# readme = "README.md"
 license-files = { paths = ["LICENSE-CODE"] }
 requires-python = ">=3.8"
 
