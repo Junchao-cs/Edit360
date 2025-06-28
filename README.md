@@ -31,5 +31,37 @@
 
 https://github.com/user-attachments/assets/84f78f5f-809e-4ff5-bf64-6fd96db991bd
 
+## Installation
+
+```
+conda create -n edit360 python=3.10
+conda activate edit360
+pip install -r requirements/pt2.txt
+```
+
+## Preparation
+
+First, clone the repository and enter the project directory:
+```
+git clone https://github.com/Junchao-cs/Edit360.git
+cd Edit360
+```
+Then, create a folder to store model checkpoints:
+```
+mkdir checkpoints
+```
+Download the `sv3d_u.safetensors` checkpoint from [Hugging Face](https://huggingface.co/stabilityai/sv3d) and place it in the `checkpoints` directory.
+
+
+## Quick start
+
+```
+python demo.py
+```
+
+## Inference
+
+
+
 
 
