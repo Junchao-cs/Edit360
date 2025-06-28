@@ -83,10 +83,21 @@ python scripts/sampling/simple_video_sample.py \
     --version sv3d_u \
     --output_folder_mp4 ./outputs/mp4 \ # video output directory
     --output_folder_img ./outputs/img \ # frame images output directory
-    --anchor_view_angle 180 \ # horizontal rotation angle of the anchor view (e.g. 180 for back view)
+    --anchor_view_angle 180 \ # horizontal rotation angle of the anchor view (e.g. 180 for back view), specified as an integer between 0 and 360
     --seed 23
 ```
-
+Note: If the anchor view was generated using mode one (sv3d) and corresponds to a specific frame index (e.g., frame 11 out of 21), you can directly specify its index using the --path_b_num argument:
+```
+python scripts/sampling/simple_video_sample.py \
+    --mode two \
+    --input_path_f ./assets/front_view.png \ # input front view path
+    --input_path_b ./assets/anchor_view.png \ # input anchor view path (e.g. back view)
+    --version sv3d_u \
+    --output_folder_mp4 ./outputs/mp4 \ # video output directory
+    --output_folder_img ./outputs/img \ # frame images output directory
+    --path_b_num 11 \ # frame index of the anchor view (1~21)
+    --seed 23
+```
 ## Useful Tools
 [Jimeng AI](https://jimeng.jianying.com/) : Text-to-image, image editing and style transformation tool 
 
