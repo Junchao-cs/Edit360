@@ -294,7 +294,8 @@ def sample_two(
     azimuths_deg: Optional[List[float]] = None,  # For SV3D
     image_frame_ratio: Optional[float] = None,
     verbose: Optional[bool] = False,
-    path_b_num: int = 10
+    anchor_view_angle = 180,
+    path_b_num: Optional[int] = None
 ):
     """
     CUDA_VISIBLE_DEVICES=0 \
@@ -305,7 +306,7 @@ def sample_two(
         --version sv3d_u \
         --output_folder_mp4 ./outputs/mp4 \
         --output_folder_img ./outputs/img \
-        --path_b_num 11 \
+        --anchor_view_angle 180 \
         --seed 23
     """
 
@@ -337,6 +338,9 @@ def sample_two(
         azimuths_rad[:-1].sort()
     else:
         raise ValueError(f"Version {version} does not exist.")
+
+    if path_b_num is None:
+        path_b_num = round(anchor_view_angle / 360 * num_frames) + 1
 
     model, filter = load_model(
         model_config,
