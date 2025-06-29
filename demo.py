@@ -163,6 +163,87 @@ with gr.Blocks() as demo:
         ]
     )
 
+    gr.Examples(
+        examples=[
+            [
+                "0", "one", 
+                "assets/demo_example/superman_f.png",
+                None,
+                "outputs/mp4",
+                "outputs/img",
+                None, 23
+            ],
+            [
+                "0", "two", 
+                "assets/demo_example/superman_f_edited.png",
+                "assets/demo_example/superman_b_edited.png",
+                "outputs/mp4",
+                "outputs/img",
+                11, 23
+            ],
+            [
+                "0", "one", 
+                "assets/demo_example/rabbit_f.png",
+                None, 
+                "outputs/mp4",
+                "outputs/img",
+                None, 23
+            ],
+            [
+                "0", "two", 
+                "assets/demo_example/rabbit_f_edited.png",
+                "assets/demo_example/rabbit_b_edited.png",
+                "outputs/mp4",
+                "outputs/img",
+                11, 23
+            ],
+            [
+                "0", "one", 
+                "assets/demo_example/girl_f.png",
+                None, 
+                "outputs/mp4",
+                "outputs/img",
+                None, 23
+            ],
+            [
+                "0", "two", 
+                "assets/demo_example/girl_f.png",
+                "assets/demo_example/girl_s_edited1.png",
+                "outputs/mp4",
+                "outputs/img",
+                5, 23
+            ],
+            [
+                "0", "two", 
+                "assets/demo_example/girl_f.png",
+                "assets/demo_example/girl_s_edited2.png",
+                "outputs/mp4",
+                "outputs/img",
+                5, 23
+            ],
+            [
+                "0", "one", 
+                "assets/demo_example/boy_f.png",
+                None,
+                "outputs/mp4",
+                "outputs/img",
+                None, 23
+            ],
+            [
+                "0", "two", 
+                "assets/demo_example/boy_f_edited.png",
+                "assets/demo_example/boy_b_edited.png",
+                "outputs/mp4",
+                "outputs/img",
+                11, 23
+            ]
+        ],
+        inputs=[
+            gpu_device, mode, input_f, input_b,
+            output_mp4, output_img, path_b_num, seed
+        ]
+    )
+
 demo.launch(
     server_name="0.0.0.0",
     share=True,
