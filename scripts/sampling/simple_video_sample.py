@@ -112,56 +112,56 @@ def sample_one(
         raise ValueError
 
 
-    # for input_img_path in all_img_paths:
-
-    #     input_image = Image.open(input_img_path)
-
-    #     if input_image.mode != "RGB":
-    #         input_image = input_image.convert("RGB")
-            
-    #     input_image = input_image.resize((576, 576), Image.Resampling.LANCZOS)
-    #     image = ToTensor()(input_image)
-    #     image = image * 2.0 - 1.0
-    
     for input_img_path in all_img_paths:
-        if "sv3d" in version:
-            image = Image.open(input_img_path)
-            if image.mode == "RGBA":
-                pass
-            else:
-                # remove bg
-                image.thumbnail([768, 768], Image.Resampling.LANCZOS)
-                image = remove(image.convert("RGBA"), alpha_matting=True)
 
-            # resize object in frame
-            image_arr = np.array(image)
-            in_w, in_h = image_arr.shape[:2]
-            ret, mask = cv2.threshold(
-                np.array(image.split()[-1]), 0, 255, cv2.THRESH_BINARY
-            )
-            x, y, w, h = cv2.boundingRect(mask)
-            max_size = max(w, h)
-            side_len = (
-                int(max_size / image_frame_ratio)
-                if image_frame_ratio is not None
-                else in_w
-            )
-            padded_image = np.zeros((side_len, side_len, 4), dtype=np.uint8)
-            center = side_len // 2
-            padded_image[
-                center - h // 2 : center - h // 2 + h,
-                center - w // 2 : center - w // 2 + w,
-            ] = image_arr[y : y + h, x : x + w]
-            # resize frame to 576x576
-            rgba = Image.fromarray(padded_image).resize((576, 576), Image.LANCZOS)
-            # white bg
-            rgba_arr = np.array(rgba) / 255.0
-            rgb = rgba_arr[..., :3] * rgba_arr[..., -1:] + (1 - rgba_arr[..., -1:])
-            input_image = Image.fromarray((rgb * 255).astype(np.uint8))
+        input_image = Image.open(input_img_path)
 
-
+        if input_image.mode != "RGB":
+            input_image = input_image.convert("RGB")
+            
+        input_image = input_image.resize((576, 576), Image.Resampling.LANCZOS)
         image = ToTensor()(input_image)
         image = image * 2.0 - 1.0
+    
+    # for input_img_path in all_img_paths:
+    #     if "sv3d" in version:
+    #         image = Image.open(input_img_path)
+    #         if image.mode == "RGBA":
+    #             pass
+    #         else:
+    #             # remove bg
+    #             image.thumbnail([768, 768], Image.Resampling.LANCZOS)
+    #             image = remove(image.convert("RGBA"), alpha_matting=True)
+
+    #         # resize object in frame
+    #         image_arr = np.array(image)
+    #         in_w, in_h = image_arr.shape[:2]
+    #         ret, mask = cv2.threshold(
+    #             np.array(image.split()[-1]), 0, 255, cv2.THRESH_BINARY
+    #         )
+    #         x, y, w, h = cv2.boundingRect(mask)
+    #         max_size = max(w, h)
+    #         side_len = (
+    #             int(max_size / image_frame_ratio)
+    #             if image_frame_ratio is not None
+    #             else in_w
+    #         )
+    #         padded_image = np.zeros((side_len, side_len, 4), dtype=np.uint8)
+    #         center = side_len // 2
+    #         padded_image[
+    #             center - h // 2 : center - h // 2 + h,
+    #             center - w // 2 : center - w // 2 + w,
+    #         ] = image_arr[y : y + h, x : x + w]
+    #         # resize frame to 576x576
+    #         rgba = Image.fromarray(padded_image).resize((576, 576), Image.LANCZOS)
+    #         # white bg
+    #         rgba_arr = np.array(rgba) / 255.0
+    #         rgb = rgba_arr[..., :3] * rgba_arr[..., -1:] + (1 - rgba_arr[..., -1:])
+    #         input_image = Image.fromarray((rgb * 255).astype(np.uint8))
+
+
+    #     image = ToTensor()(input_image)
+    #     image = image * 2.0 - 1.0
 
         image = image.unsqueeze(0).to(device)
         H, W = image.shape[2:]
@@ -392,128 +392,128 @@ def sample_two(
     else:
         raise ValueError
 
-    # for input_img_path_f in all_img_paths_f:
-    #     input_image_f = Image.open(input_img_path_f)
-    #     if input_image_f.mode != "RGB":
-    #         input_image_f = input_image_f.convert("RGB")
-            
-    #     input_image_f = input_image_f.resize((576, 576), Image.Resampling.LANCZOS)
-    #     image_f = ToTensor()(input_image_f)
-    #     image_f = image_f * 2.0 - 1.0
-
-    # for input_img_path_b in all_img_paths_b:
-    #     input_image_b = Image.open(input_img_path_b)
-    #     if input_image_b.mode != "RGB":
-    #         input_image_b = input_image_b.convert("RGB")
-        
-    #     input_image_b = input_image_b.resize((576, 576), Image.Resampling.LANCZOS)
-    #     image_b = ToTensor()(input_image_b)
-    #     image_b = image_b * 2.0 - 1.0
-
     for input_img_path_f in all_img_paths_f:
-        if "sv3d" in version:
-            image_f = Image.open(input_img_path_f)
-            if image_f.mode == "RGBA":
-                pass
-            else:
-                # remove bg
-                image_f.thumbnail([768, 768], Image.Resampling.LANCZOS)
-                image_f = remove(image_f.convert("RGBA"), alpha_matting=True)
-
-            # resize object in frame
-            image_arr_f = np.array(image_f)
-            in_w, in_h = image_arr_f.shape[:2]
-            ret, mask = cv2.threshold(
-                np.array(image_f.split()[-1]), 0, 255, cv2.THRESH_BINARY
-            )
-            x, y, w, h = cv2.boundingRect(mask)
-            max_size = max(w, h)
-            side_len = (
-                int(max_size / image_frame_ratio)
-                if image_frame_ratio is not None
-                else in_w
-            )
-            padded_image_f = np.zeros((side_len, side_len, 4), dtype=np.uint8)
-            center = side_len // 2
-            padded_image_f[
-                center - h // 2 : center - h // 2 + h,
-                center - w // 2 : center - w // 2 + w,
-            ] = image_arr_f[y : y + h, x : x + w]
-            # resize frame to 576x576
-            rgba_f = Image.fromarray(padded_image_f).resize((576, 576), Image.LANCZOS)
-            # white bg
-            rgba_arr_f = np.array(rgba_f) / 255.0
-            rgb_f = rgba_arr_f[..., :3] * rgba_arr_f[..., -1:] + (1 - rgba_arr_f[..., -1:])
-            input_image_f = Image.fromarray((rgb_f * 255).astype(np.uint8))
-
-        else:
-            with Image.open(input_img_path_f) as image_f:
-                if image_f.mode == "RGBA":
-                    input_image_f = image_f.convert("RGB")
-                w, h = image_f.size
-
-                if h % 64 != 0 or w % 64 != 0:
-                    width, height = map(lambda x: x - x % 64, (w, h))
-                    input_image_f = input_image_f.resize((width, height))
-                    print(
-                        f"WARNING: Your image_f is of size {h}x{w} which is not divisible by 64. We are resizing to {height}x{width}!"
-                    )
-
-    for input_img_path_b in all_img_paths_b:
-        if "sv3d" in version:
-            image_b = Image.open(input_img_path_b)
-            if image_b.mode == "RGBA":
-                pass
-            else:
-                # remove bg
-                image_b.thumbnail([768, 768], Image.Resampling.LANCZOS)
-                image_b = remove(image_b.convert("RGBA"), alpha_matting=True)
-
-            # resize object in frame
-            image_arr_b = np.array(image_b)
-            in_w, in_h = image_arr_b.shape[:2]
-            ret, mask = cv2.threshold(
-                np.array(image_b.split()[-1]), 0, 255, cv2.THRESH_BINARY
-            )
-            x, y, w, h = cv2.boundingRect(mask)
-            max_size = max(w, h)
-            side_len = (
-                int(max_size / image_frame_ratio)
-                if image_frame_ratio is not None
-                else in_w
-            )
-            padded_image_b = np.zeros((side_len, side_len, 4), dtype=np.uint8)
-            center = side_len // 2
-            padded_image_b[
-                center - h // 2 : center - h // 2 + h,
-                center - w // 2 : center - w // 2 + w,
-            ] = image_arr_b[y : y + h, x : x + w]
-            # resize frame to 576x576
-            rgba_b = Image.fromarray(padded_image_b).resize((576, 576), Image.LANCZOS)
-            # white bg
-            rgba_arr_b = np.array(rgba_b) / 255.0
-            rgb_b = rgba_arr_b[..., :3] * rgba_arr_b[..., -1:] + (1 - rgba_arr_b[..., -1:])
-            input_image_b = Image.fromarray((rgb_b * 255).astype(np.uint8))
-
-        else:
-            with Image.open(input_img_path_b) as image_b:
-                if image_b.mode == "RGBA":
-                    input_image_b = image_b.convert("RGB")
-                w, h = image_b.size
-
-                if h % 64 != 0 or w % 64 != 0:
-                    width, height = map(lambda x: x - x % 64, (w, h))
-                    input_image_b = input_image_b.resize((width, height))
-                    print(
-                        f"WARNING: Your image_b is of size {h}x{w} which is not divisible by 64. We are resizing to {height}x{width}!"
-                    )
-
-
+        input_image_f = Image.open(input_img_path_f)
+        if input_image_f.mode != "RGB":
+            input_image_f = input_image_f.convert("RGB")
+            
+        input_image_f = input_image_f.resize((576, 576), Image.Resampling.LANCZOS)
         image_f = ToTensor()(input_image_f)
         image_f = image_f * 2.0 - 1.0
+
+    for input_img_path_b in all_img_paths_b:
+        input_image_b = Image.open(input_img_path_b)
+        if input_image_b.mode != "RGB":
+            input_image_b = input_image_b.convert("RGB")
         
+        input_image_b = input_image_b.resize((576, 576), Image.Resampling.LANCZOS)
         image_b = ToTensor()(input_image_b)
         image_b = image_b * 2.0 - 1.0
+
+    # for input_img_path_f in all_img_paths_f:
+    #     if "sv3d" in version:
+    #         image_f = Image.open(input_img_path_f)
+    #         if image_f.mode == "RGBA":
+    #             pass
+    #         else:
+    #             # remove bg
+    #             image_f.thumbnail([768, 768], Image.Resampling.LANCZOS)
+    #             image_f = remove(image_f.convert("RGBA"), alpha_matting=True)
+
+    #         # resize object in frame
+    #         image_arr_f = np.array(image_f)
+    #         in_w, in_h = image_arr_f.shape[:2]
+    #         ret, mask = cv2.threshold(
+    #             np.array(image_f.split()[-1]), 0, 255, cv2.THRESH_BINARY
+    #         )
+    #         x, y, w, h = cv2.boundingRect(mask)
+    #         max_size = max(w, h)
+    #         side_len = (
+    #             int(max_size / image_frame_ratio)
+    #             if image_frame_ratio is not None
+    #             else in_w
+    #         )
+    #         padded_image_f = np.zeros((side_len, side_len, 4), dtype=np.uint8)
+    #         center = side_len // 2
+    #         padded_image_f[
+    #             center - h // 2 : center - h // 2 + h,
+    #             center - w // 2 : center - w // 2 + w,
+    #         ] = image_arr_f[y : y + h, x : x + w]
+    #         # resize frame to 576x576
+    #         rgba_f = Image.fromarray(padded_image_f).resize((576, 576), Image.LANCZOS)
+    #         # white bg
+    #         rgba_arr_f = np.array(rgba_f) / 255.0
+    #         rgb_f = rgba_arr_f[..., :3] * rgba_arr_f[..., -1:] + (1 - rgba_arr_f[..., -1:])
+    #         input_image_f = Image.fromarray((rgb_f * 255).astype(np.uint8))
+
+    #     else:
+    #         with Image.open(input_img_path_f) as image_f:
+    #             if image_f.mode == "RGBA":
+    #                 input_image_f = image_f.convert("RGB")
+    #             w, h = image_f.size
+
+    #             if h % 64 != 0 or w % 64 != 0:
+    #                 width, height = map(lambda x: x - x % 64, (w, h))
+    #                 input_image_f = input_image_f.resize((width, height))
+    #                 print(
+    #                     f"WARNING: Your image_f is of size {h}x{w} which is not divisible by 64. We are resizing to {height}x{width}!"
+    #                 )
+
+    # for input_img_path_b in all_img_paths_b:
+    #     if "sv3d" in version:
+    #         image_b = Image.open(input_img_path_b)
+    #         if image_b.mode == "RGBA":
+    #             pass
+    #         else:
+    #             # remove bg
+    #             image_b.thumbnail([768, 768], Image.Resampling.LANCZOS)
+    #             image_b = remove(image_b.convert("RGBA"), alpha_matting=True)
+
+    #         # resize object in frame
+    #         image_arr_b = np.array(image_b)
+    #         in_w, in_h = image_arr_b.shape[:2]
+    #         ret, mask = cv2.threshold(
+    #             np.array(image_b.split()[-1]), 0, 255, cv2.THRESH_BINARY
+    #         )
+    #         x, y, w, h = cv2.boundingRect(mask)
+    #         max_size = max(w, h)
+    #         side_len = (
+    #             int(max_size / image_frame_ratio)
+    #             if image_frame_ratio is not None
+    #             else in_w
+    #         )
+    #         padded_image_b = np.zeros((side_len, side_len, 4), dtype=np.uint8)
+    #         center = side_len // 2
+    #         padded_image_b[
+    #             center - h // 2 : center - h // 2 + h,
+    #             center - w // 2 : center - w // 2 + w,
+    #         ] = image_arr_b[y : y + h, x : x + w]
+    #         # resize frame to 576x576
+    #         rgba_b = Image.fromarray(padded_image_b).resize((576, 576), Image.LANCZOS)
+    #         # white bg
+    #         rgba_arr_b = np.array(rgba_b) / 255.0
+    #         rgb_b = rgba_arr_b[..., :3] * rgba_arr_b[..., -1:] + (1 - rgba_arr_b[..., -1:])
+    #         input_image_b = Image.fromarray((rgb_b * 255).astype(np.uint8))
+
+    #     else:
+    #         with Image.open(input_img_path_b) as image_b:
+    #             if image_b.mode == "RGBA":
+    #                 input_image_b = image_b.convert("RGB")
+    #             w, h = image_b.size
+
+    #             if h % 64 != 0 or w % 64 != 0:
+    #                 width, height = map(lambda x: x - x % 64, (w, h))
+    #                 input_image_b = input_image_b.resize((width, height))
+    #                 print(
+    #                     f"WARNING: Your image_b is of size {h}x{w} which is not divisible by 64. We are resizing to {height}x{width}!"
+    #                 )
+
+
+    #     image_f = ToTensor()(input_image_f)
+    #     image_f = image_f * 2.0 - 1.0
+        
+    #     image_b = ToTensor()(input_image_b)
+    #     image_b = image_b * 2.0 - 1.0
 
         image_f = image_f.unsqueeze(0).to(device)
         image_b = image_b.unsqueeze(0).to(device)
