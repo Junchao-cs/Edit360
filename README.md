@@ -67,7 +67,7 @@ We provide two inference modes:
 ```
 python scripts/sampling/simple_video_sample.py \
     --mode one \
-    --input_path ./assets/front_view.png \ # input image path
+    --input_path path/to/front_view.png \ # input image path
     --version sv3d_u \
     --output_folder_mp4 ./outputs/mp4 \ # video output directory
     --output_folder_img ./outputs/img \ # frame images output directory
@@ -78,8 +78,8 @@ python scripts/sampling/simple_video_sample.py \
 ```
 python scripts/sampling/simple_video_sample.py \
     --mode two \
-    --input_path_f ./assets/front_view.png \ # input front view path
-    --input_path_b ./assets/anchor_view.png \ # input anchor view path (e.g. back view)
+    --input_path_f path/to/front_view.png \ # input front view path
+    --input_path_b path/to/anchor_view.png \ # input anchor view path (e.g. back view)
     --version sv3d_u \
     --output_folder_mp4 ./outputs/mp4 \ # video output directory
     --output_folder_img ./outputs/img \ # frame images output directory
@@ -90,8 +90,8 @@ Note: If the anchor view was generated using mode one (sv3d) and corresponds to 
 ```
 python scripts/sampling/simple_video_sample.py \
     --mode two \
-    --input_path_f ./assets/front_view.png \ # input front view path
-    --input_path_b ./assets/anchor_view.png \ # input anchor view path (e.g. back view)
+    --input_path_f path/to/front_view.png \ # input front view path
+    --input_path_b path/to/anchor_view.png \ # input anchor view path (e.g. back view)
     --version sv3d_u \
     --output_folder_mp4 ./outputs/mp4 \ # video output directory
     --output_folder_img ./outputs/img \ # frame images output directory
