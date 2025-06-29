@@ -250,23 +250,23 @@ class DualConditionEDMSampler(EulerEDMSampler):
         super().__init__(*args, **kwargs)
         
         # Initialize alpha_t with a custom pattern
-        # alpha_start = np.array([1.0, 1.0, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.3, 0.1, 0.0,
-        #                         0.1, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.0])
-        # alpha_end = np.array([1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.0,
-        #                         0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+        alpha_start = np.array([1.0, 1.0, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.3, 0.0, 0.0,
+                                0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.0, 1.0])
+        alpha_end = np.array([1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.1,
+                                0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0])
         
-        indices = np.arange(21)
-        distances = np.minimum(indices, 21 - indices)
-        sigma_start = 5.0
-        sigma_end = 3.5
-        alpha_start = np.exp(- (distances ** 2) / (2 * sigma_start ** 2))
-        alpha_end = np.exp(- (distances ** 2) / (2 * sigma_end ** 2))
-        alpha_start = np.round(alpha_start, 1)
-        alpha_end = np.round(alpha_end, 1)
+        # indices = np.arange(21)
+        # distances = np.minimum(indices, 21 - indices)
+        # sigma_start = 5.0
+        # sigma_end = 3.5
+        # alpha_start = np.exp(- (distances ** 2) / (2 * sigma_start ** 2))
+        # alpha_end = np.exp(- (distances ** 2) / (2 * sigma_end ** 2))
+        # alpha_start = np.round(alpha_start, 1)
+        # alpha_end = np.round(alpha_end, 1)
 
         n_steps = 50
         alpha_t = np.linspace(alpha_start, alpha_end, 35)  
-        alpha_t = np.concatenate([alpha_t, np.tile(alpha_end, (n_steps - 35, 1))])  
+        alpha_t = np.concatenate([alpha_t, np.tile(alpha_end, (n_steps - 35, 1))]) 
         self.alpha_t = torch.tensor(alpha_t, dtype=torch.float32)
         
         self.sobel_x = (torch.tensor([[ -1., 0., 1.],
