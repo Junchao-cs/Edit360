@@ -149,23 +149,6 @@ with gr.Blocks() as demo:
     gr.Examples(
         examples=[
             [
-                "0", "two", 
-                "path/to/example_f.png",
-                "path/to/example_b.png",
-                "outputs/mp4",
-                "outputs/img",
-                11, 21
-            ]
-        ],
-        inputs=[
-            gpu_device, mode, input_f, input_b,
-            output_mp4, output_img, path_b_num, seed
-        ]
-    )
-
-    gr.Examples(
-        examples=[
-            [
                 "0", "one", 
                 "assets/demo_example/superman_f.png",
                 None,
