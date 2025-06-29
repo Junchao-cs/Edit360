@@ -26,7 +26,7 @@ from torchvision.transforms import ToTensor
 
 
 def sample_one(
-    input_path: str = "assets/test_image_1.png",  # Can either be image file or folder with image files
+    input_path: str = "assets/demo_example/boy_f.png",  # Can either be image file or folder with image files
     num_frames: Optional[int] = None,  # 21 for SV3D
     num_steps: Optional[int] = None,
     version: str = "sv3d_u",
@@ -47,7 +47,7 @@ def sample_one(
     CUDA_VISIBLE_DEVICES=0 \
     python scripts/sampling/simple_video_sample.py \
         --mode one \
-        --input_path ./assets/test_image_1.png \
+        --input_path assets/demo_example/boy_f.png \
         --version sv3d_u \
         --output_folder_mp4 ./outputs/mp4 \
         --output_folder_img ./outputs/img \
@@ -276,8 +276,8 @@ def sample_one(
                 
 
 def sample_two(
-    input_path_f: str = "assets/test_image_1.png",
-    input_path_b: str = "assets/test_image_2.png",
+    input_path_f: str = "assets/demo_example/boy_f_edited.png",
+    input_path_b: str = "assets/demo_example/boy_b_edited.png",
     num_frames: Optional[int] = None,  # 21 for SV3D
     num_steps: Optional[int] = None,
     version: str = "sv3d_u",
@@ -294,15 +294,15 @@ def sample_two(
     azimuths_deg: Optional[List[float]] = None,  # For SV3D
     image_frame_ratio: Optional[float] = None,
     verbose: Optional[bool] = False,
-    anchor_view_angle = 180,
+    anchor_view_angle: int = 180,
     path_b_num: Optional[int] = None
 ):
     """
     CUDA_VISIBLE_DEVICES=0 \
     python scripts/sampling/simple_video_sample.py \
         --mode two \
-        --input_path_f ./assets/test_image_1.png \
-        --input_path_b ./assets/test_image_2.png \
+        --input_path_f assets/demo_example/boy_f_edited.png \
+        --input_path_b assets/demo_example/boy_b_edited.png \
         --version sv3d_u \
         --output_folder_mp4 ./outputs/mp4 \
         --output_folder_img ./outputs/img \
@@ -736,8 +736,7 @@ def load_model(
 
 def main():
     parser = argparse.ArgumentParser(description="Choose which sampling function to run.")
-    parser.add_argument('--mode', type=str, choices=['one', 'two'], required=True, 
-                        help="Choose 'one' to run sample_one, 'two' to run sample_two.")
+    parser.add_argument('--mode', type=str, choices=['one', 'two'], required=True, help="Choose 'one' to run sample_one, 'two' to run sample_two.")
     
     args, remaining_args = parser.parse_known_args()
     
