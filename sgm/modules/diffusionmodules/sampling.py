@@ -346,7 +346,7 @@ class DualConditionEDMSampler(EulerEDMSampler):
         for i in range(21):
             x_reordered[i] = x[(i + p - 1) % 21]
         
-        if step_index < 30:
+        if step_index < 20:
             kv_f_list = []
             is_front_view = True
             denoised_a, kv_f_list = self.denoise(x, denoiser, sigma_hat, cond_f, uc_f, is_front_view, kv_f_list)
