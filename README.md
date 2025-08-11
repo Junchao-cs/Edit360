@@ -2,7 +2,7 @@
 <h1 align="center"><strong>Edit360: 2D Image Edits to 3D Assets from Any Angle</strong></h1>
 
 <h3 align="center" style="margin-top: -0.5rem; color: #3273dc;">
-  ICCV 2025
+  ICCV 2025 (Highlight)
 </h3>
 
 <p align="center">
