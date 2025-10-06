@@ -6,7 +6,7 @@
 </h3>
 
 <p align="center">
-  <a href="https://junchao-cs.github.io/Junchao_Huang_CV/" target="_blank">Junchao Huang<sup>1</sup></a>
+  <a href="https://junchao-cs.github.io/" target="_blank">Junchao Huang<sup>1</sup></a>
   <a href="https://joyhuyy1412.github.io/" target="_blank">Xinting Hu<sup>2</sup></a>
   <a href="https://shishaoshuai.com/" target="_blank">Shaoshuai Shi<sup>4</sup></a>
   <a href="https://faculty.hitsz.edu.cn/zhuotaotian" target="_blank">Zhuotao Tian<sup>3</sup></a>
