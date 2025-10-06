@@ -106,14 +106,11 @@ python scripts/sampling/simple_video_sample.py \
 ## Citation
 If you find our work helpful, please cite:
 ```
-@misc{huang2025edit3602dimageedits,
-  title={Edit360: 2D Image Edits to 3D Assets from Any Angle}, 
-  author={Junchao Huang and Xinting Hu and Zhuotao Tian and Shaoshuai Shi and Li Jiang},
-  year={2025},
-  eprint={2506.10507},
-  archivePrefix={arXiv},
-  primaryClass={cs.GR},
-  url={https://arxiv.org/abs/2506.10507}
+@inproceedings{huang2025edit360,
+  title={Edit360: 2D Image Edits to 3D Assets from Any Angle},
+  author={Huang, Junchao and Hu, Xinting and Shi, Shaoshuai and Tian, Zhuotao and Jiang, Li},
+  booktitle={ICCV},
+  year={2025}
 }
 ```
 
