@@ -250,10 +250,15 @@ class DualConditionEDMSampler(EulerEDMSampler):
         super().__init__(*args, **kwargs)
         
         # Initialize alpha_t with a custom pattern
+        # alpha_start = np.array([1.0, 1.0, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.3, 0.0, 0.0,
+        #                         0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.0, 1.0])
+        # alpha_end = np.array([1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.1,
+        #                         0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0])
+        
         alpha_start = np.array([1.0, 1.0, 1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.3, 0.0, 0.0,
                                 0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.0, 1.0])
-        alpha_end = np.array([1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.1,
-                                0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0])
+        alpha_end = np.array([0.9, 0.7, 0.5, 0.3, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                0.0, 0.0, 0.0, 0.0, 0.1, 0.3, 0.5, 0.7, 0.9, 1.0])
         
         # indices = np.arange(21)
         # distances = np.minimum(indices, 21 - indices)

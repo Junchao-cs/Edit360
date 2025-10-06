@@ -101,8 +101,11 @@ with gr.Blocks() as demo:
                 value="two",
                 label="Mode"
             )
-            input_f = gr.Image(label="Input Image F", type="filepath")
-            input_b = gr.Image(label="Input Image B", type="filepath")
+            
+            # 输入图片框并列显示
+            with gr.Row():
+                input_f = gr.Image(label="Input Image F", type="filepath", height=200)
+                input_b = gr.Image(label="Input Image B", type="filepath", height=200)
             
             output_mp4 = gr.Textbox(label="Output MP4 Folder", value="outputs/mp4")
             output_img = gr.Textbox(label="Output Image Folder", value="outputs/img")
@@ -112,8 +115,17 @@ with gr.Blocks() as demo:
             generate_btn = gr.Button("Generate")
 
         with gr.Column():
-            video_output = gr.Video(label="Generated Video")
-            gallery = gr.Gallery(label="Generated Images")
+            # 缩小视频输出框的尺寸
+            video_output = gr.Video(label="Generated Video", height=250)
+            # 设置图片展示框为可滚动，显示更多图片
+            gallery = gr.Gallery(
+                label="Generated Images", 
+                height=600, 
+                columns=5, 
+                rows=5,
+                allow_preview=True,
+                show_download_button=True
+            )
             
             with gr.Row():
                 download_video = gr.File(label="Download Video")
@@ -150,27 +162,11 @@ with gr.Blocks() as demo:
         examples=[
             [
                 "0", "one", 
-                "assets/demo_example/superman_f.png",
-                None,
-                "outputs/mp4",
-                "outputs/img",
-                None, 23
-            ],
-            [
-                "0", "two", 
-                "assets/demo_example/superman_f_edited.png",
-                "assets/demo_example/superman_b_edited.png",
-                "outputs/mp4",
-                "outputs/img",
-                11, 23
-            ],
-            [
-                "0", "one", 
                 "assets/demo_example/rabbit_f.png",
                 None, 
                 "outputs/mp4",
                 "outputs/img",
-                None, 23
+                None, 19
             ],
             [
                 "0", "two", 
@@ -178,7 +174,39 @@ with gr.Blocks() as demo:
                 "assets/demo_example/rabbit_b_edited.png",
                 "outputs/mp4",
                 "outputs/img",
-                11, 23
+                11, 19
+            ],
+            [
+                "0", "one", 
+                "assets/demo_example/iron_man_f.png",
+                None,
+                "outputs/mp4",
+                "outputs/img",
+                None, 20
+            ],
+            [
+                "0", "two", 
+                "assets/demo_example/iron_man_f.png",
+                "assets/demo_example/iron_man_b.png",
+                "outputs/mp4",
+                "outputs/img",
+                11, 20
+            ],
+            [
+                "0", "one", 
+                "assets/demo_example/superman_f.png",
+                None,
+                "outputs/mp4",
+                "outputs/img",
+                None, 21
+            ],
+            [
+                "0", "two", 
+                "assets/demo_example/superman_f_edited.png",
+                "assets/demo_example/superman_b_edited.png",
+                "outputs/mp4",
+                "outputs/img",
+                11, 21
             ],
             [
                 "0", "one", 
@@ -186,7 +214,7 @@ with gr.Blocks() as demo:
                 None, 
                 "outputs/mp4",
                 "outputs/img",
-                None, 23
+                None, 22
             ],
             [
                 "0", "two", 
@@ -194,7 +222,7 @@ with gr.Blocks() as demo:
                 "assets/demo_example/girl_s_edited1.png",
                 "outputs/mp4",
                 "outputs/img",
-                5, 23
+                5, 22
             ],
             [
                 "0", "two", 
@@ -202,24 +230,8 @@ with gr.Blocks() as demo:
                 "assets/demo_example/girl_s_edited2.png",
                 "outputs/mp4",
                 "outputs/img",
-                5, 23
+                5, 22
             ],
-            [
-                "0", "one", 
-                "assets/demo_example/boy_f.png",
-                None,
-                "outputs/mp4",
-                "outputs/img",
-                None, 23
-            ],
-            [
-                "0", "two", 
-                "assets/demo_example/boy_f_edited.png",
-                "assets/demo_example/boy_b_edited.png",
-                "outputs/mp4",
-                "outputs/img",
-                11, 23
-            ]
         ],
         inputs=[
             gpu_device, mode, input_f, input_b,
