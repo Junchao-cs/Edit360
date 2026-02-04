@@ -117,4 +117,5 @@ If you find our work helpful, please cite:
 ## Acknowledgements
 - [SV3D](https://github.com/Stability-AI/generative-models/tree/main): Our model architecture is based on SV3D. We also use pretrained network weight from it.
 - [Tailor3D](https://tailor3d-2024.github.io/): Our approach extends Tailor3D's pioneering 3D asset editing framework by adapting it for arbitrary viewpoint editing through video diffusion models.
+- [V3D](https://github.com/heheyas/V3D): We use V3D for 3DGS reconstruction.
 
